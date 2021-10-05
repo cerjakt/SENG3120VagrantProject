@@ -1,3 +1,8 @@
+#--------------------------------------------------------#
+# Title: Vagrant Multi-Server Dev Environment Automation #
+# Name: Jake Cermak                                      #
+#--------------------------------------------------------#
+
 # -*- mode: ruby -*-
 
 # vi: set ft=ruby :
@@ -11,16 +16,25 @@ Vagrant.configure("2") do |config|
 
    web.vm.network "forwarded_port", guest: 80, host: 8080
 
-   web.vm.network "private_network", ip: "192.168.56.10"
+   web.vm.network "private_network", ip: "192.168.56.10" #ip
 
+   #setting up provision block to create a script that will run the essential commands
+   web.vm.provision "shell", inline: <<-SHELL
+   apt-get update
+   apt-get install -y apache2
+   SHELL
   end
-
 
   config.vm.define "db" do |db|
 
    db.vm.box = "ubuntu/bionic64"
-
    db.vm.network "private_network", ip: "192.168.56.11" #ip
+   
+   #setting up provision block to create a script that will run the essential commands
+   db.vm.provision "shell", inline: <<-SHELL
+   apt-get update
+   #apt-get install -y <what goes here> 
+   SHELL
 
   end 
 
