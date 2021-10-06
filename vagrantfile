@@ -35,8 +35,7 @@ Vagrant.configure("2") do |config|
    db.vm.provision "shell", inline: <<-SHELL
    apt-get update
    apt-get upgrade
-   apt-get install -y mariadb-server 
-   apt-git clone https://github.com/datacharmer/test_db.git
+   apt-get install -y mariadb-server
    SHELL
 
   end 
